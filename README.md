@@ -31,8 +31,9 @@ Service Account là một loại tài khoản đặc biệt của Google, không
 Điền tên Service Account, chọn `CREATE AND CONTINUE`.
 Lần lượt tìm và chọn các Role sau:
    - Cloud Storage -> Storage Admin
+   - Cloud Storage -> Storage Object Admin
    - Big Query -> BigQuery Data Owner
-   - Big Query - > BigQuery User
+   - Big Query -> BigQuery User
 
 ![image4.png](images/image4.png)
 
@@ -83,3 +84,125 @@ Tùy thuộc vào các yêu cầu cụ thể cũng như mục tiêu sử dụng,
 
 5. Setup Airflow trên GCP Compute Engine
 
+Nhấn vào biểu tượng `Navigation menu` -> `Compute Engine` -> `VM instances` -> `CREATE INSTANCE`.
+
+Điền thông tin như hình dưới và nhấn `CREATE`.
+
+![image9.png](images/image9.png)
+
+![image10.png](images/image10.png)
+
+Chọn machine type:
+
+![image11.png](images/image11.png)
+
+Chọn boot disk:
+
+![image12.png](images/image12.png)
+
+![image13.png](images/image13.png)
+
+Chon `Create` để tạo instance.
+
+Để có thể truy cập vào Airfow Web UI, ta cần thiết lập Firewall Rule cho instance vừa tạo.
+
+Tại màn hình `VM instances`, chọn instance vừa tạo, chọn `More Action` -> `View network details`.
+
+![image14.png](images/image14.png)
+
+Tại section `Network interface details` -> click vaò network `default`
+
+![image15.png](images/image15.png)
+
+Chọn `Firewall` -> `Add firewall rule`.
+
+![image16.png](images/image16.png)
+
+Thiết lập thông tin như hình dưới và nhấn `CREATE`.
+
+Quay trở lại màn hình `Compute Engine` -> `VM instances`, chọn instance vừa tạo, chọn `SSH` để truy cập vào instance.
+
+Cửa sổ terminal hiện ra, thực hiện các bước sau: 
+ - Setup Docker apt repository:
+```bash
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+```
+- Cài đặt Docker:
+```bash
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+- Kiểm tra Docker đã cài đặt thành công:
+```bash
+sudo docker --version
+```
+
+- Cài đặt git và make:
+```bash
+sudo apt-get install git make
+```
+
+- Clone repository:
+```bash
+git clone https://github.com/NgQuangHuyit/GCP-Data-Pipeline.git
+```
+- Setup project:
+```bash
+cd GCP-Data-Pipeline
+make init-dirs
+make setup
+```
+
+Nhập vào lần lượt các thông tin sau:
+- Airfow Webserver Username. Ex: airflow
+- Airfow Webserver Password Ex: airflow
+- GCS Bucket Name (Tên bucket đã tạo) Ex: mybucket
+- BigQuery dataset name Ex: mydataset
+- BigQuery table name Ex: mytable
+
+Chọn `UPLOAD` để upload file json key đã tạo ở bước 3.O.
+
+Di chuyển file json key vào thư mục `credentials`:
+```bash
+mv ~/<json-file-name> ~/GCP-Data-Pipeline/credentials/
+```
+
+Chaỵ docker compose:
+```bash
+sudo make up
+```
+
+# DEMO
+Truy cập vào Airflow Web UI bằng cách mở trình duyệt và truy cập vào địa chỉ `http://<external-ip>:8081` với <external-ip> là external ip của instance. Tài khoản và mật khẩu để truy cập vào Airflow Web UI là thông tin đã nhập ở bước 5.1.
+
+![airflowui.png](images/airflowui.png)
+
+Chọn `nexar-pipeline` -> click vào `Trigger Button` để chạy pipeline.
+
+![dag.png](images/dag.png)
+
+GCS bucket:
+
+![bucket1.png](images/bucket1.png)
+
+![bucket2.png](images/bucket2.png)
+
+BigQuery:
+
+![bigquery1.png](images/bigquery1.png)  
+
+Truy vấn dữ liệu từ BigQuery:
+
+![bigquery2.png](images/bigquery2.png)
