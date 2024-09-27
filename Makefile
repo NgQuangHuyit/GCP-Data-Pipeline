@@ -1,8 +1,8 @@
 up:
-	docker-compose up -d
+	docker compose -f docker-compose-airflow.yml up
 
 down:
-	docker-compose down -v
+	docker compose -f docker-compose-airflow.yml  down -v
 
 init-dirs:
 	mkdir -p ./dags ./logs ./plugins
