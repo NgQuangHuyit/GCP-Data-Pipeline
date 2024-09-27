@@ -1,7 +1,31 @@
-# Tổng quan
+# GCP Data Pipeline
+
+## Mục lục
+- [Tổng quan](#tổng-quan)
+- [Hướng dẫn Setup môi trường](#hướng-dẫn-setup-môi-trường)
+  - [1. Khởi tạo GCP project](#1-khởi-tạo-gcp-project)
+  - [2. Enable các API Services cần thiết](#2-enable-các-api-services-cần-thiết)
+  - [3. Tạo Service Account và tải file json key](#3-tạo-service-account-và-tải-file-json-key)
+  - [4. Tạo Google Cloud Storage Bucket](#4-tạo-google-cloud-storage-bucket)
+  - [5. Setup Airflow trên GCP Compute Engine](#5-setup-airflow-trên-gcp-compute-engine)
+    - [5.1. Tạo Compute Engine Instance](#51-tạo-compute-engine-instance)
+    - [5.2 Thiết lập Firewall Rule](#52-thiết-lập-firewall-rule)
+    - [5.3 Setup Airflow](#53-setup-airflow)
+- [Kết quả chạy DEMO](#kết-quả-chạy-demo)
+
+
+## Tổng quan
+Môi trường chạy: Google Cloud VPS
+
+Stack: Apache Airflow, Google Cloud Storage(GCS), BigQuery.
+
+Data Pipeline: `Google Drive` -> `Google Cloud Storage` -> `BigQuery`
+
+Data Source: Dữ liệu test sinh ra từ `dummydata_generator.py` - > `Google Drive`
 
 ## Hướng dẫn Setup môi trường
-1. Khởi tạo GCP project
+
+### 1. Khởi tạo GCP project
     
 Tại màn hình console của GCP, chọn hoặc tạo project mới.
 
@@ -13,14 +37,14 @@ Tại màn hình console chính, nhấn vào biểu tượng `Navigation menu` -
 
 ![image2.png](images/image2.png)
    
-2. Enable các API Services cần thiết
+### 2. Enable các API Services cần thiết
 
 Nhấn vào biểu tượng `Navigation menu` -> `APIs & Services` -> `Enable APIs and Services`.
 Chọn `ENABLE APIS AND SERVICES`, tìm kiếm và `ENABLE` các API sau:
    - Google Drive API
    - Compute Engine API
 
-3. Tạo Service Account và tải file json key
+### 3. Tạo Service Account và tải file json key
 
 Service Account là một loại tài khoản đặc biệt của Google, không đại diện cho bất cứ người dùng cụ thể nào. Service Account được sử dụng để thực hiện xác thực và phân quyền cho các ứng dụng cần truy cập vào tài nguyên của GCP. Cùng với cơ chế Role-based Access Congtrol (Kiểm soát truy cập dựa trên vai trò), mỗi Role tương ứng với một tập hợp các quyền (permissrions) cho phép thực hiện các thao tác lên tài nguyên GCP. Mỗi Service Account có thể được gán một hoặc nhiều Role, và mỗi Role có thể được gán cho một hoặc nhiều Service Account. Các Role được gán cho một Service Account sẽ xác định các quyền mà Service Account đó có thể thực hiện trên các tài nguyên của GCP.
    
@@ -45,7 +69,7 @@ Tại màn hình `Service Accounts`, tìm tới Service Account vừa tạo,  nh
 
 Chọn `ADD KEY` -> `Create new key` -> `JSON` -> `CREATE` để tạo file json key và tải về máy.
 
-4. Tạo Google Cloud Storage Bucket
+### 4. Tạo Google Cloud Storage Bucket
 
 Nhấn vào biểu tượng `Navigation menu` -> `Cloud Storage` -> `Buckets` -> `Create`.
 
@@ -82,7 +106,9 @@ Tùy thuộc vào các yêu cầu cụ thể cũng như mục tiêu sử dụng,
 
 ![image8.png](images/image8.png)
 
-5. Setup Airflow trên GCP Compute Engine
+### 5. Setup Airflow trên GCP Compute Engine
+
+#### 5.1. Tạo Compute Engine Instance
 
 Nhấn vào biểu tượng `Navigation menu` -> `Compute Engine` -> `VM instances` -> `CREATE INSTANCE`.
 
@@ -104,6 +130,8 @@ Chọn boot disk:
 
 Chon `Create` để tạo instance.
 
+#### 5.2 Thiết lập Firewall Rule
+
 Để có thể truy cập vào Airfow Web UI, ta cần thiết lập Firewall Rule cho instance vừa tạo.
 
 Tại màn hình `VM instances`, chọn instance vừa tạo, chọn `More Action` -> `View network details`.
@@ -114,11 +142,17 @@ Tại section `Network interface details` -> click vaò network `default`
 
 ![image15.png](images/image15.png)
 
-Chọn `Firewall` -> `Add firewall rule`.
+Chọn `Firewalls ` -> `Add firewall rule`.
 
 ![image16.png](images/image16.png)
 
 Thiết lập thông tin như hình dưới và nhấn `CREATE`.
+
+![image17.png](images/image17.png)
+
+![image18.png](images/image18.png)
+
+#### 5.3 Setup Airflow 
 
 Quay trở lại màn hình `Compute Engine` -> `VM instances`, chọn instance vừa tạo, chọn `SSH` để truy cập vào instance.
 
@@ -172,7 +206,7 @@ Nhập vào lần lượt các thông tin sau:
 - BigQuery dataset name Ex: mydataset
 - BigQuery table name Ex: mytable
 
-Chọn `UPLOAD` để upload file json key đã tạo ở bước 3.O.
+Ở phía trên màn hình terminal, chọn `UPLOAD` -> upload file json key đã tạo ở bước 3 .
 
 Di chuyển file json key vào thư mục `credentials`:
 ```bash
@@ -184,7 +218,7 @@ Chaỵ docker compose:
 sudo make up
 ```
 
-# DEMO
+# Kết quả chạy DEMO
 Truy cập vào Airflow Web UI bằng cách mở trình duyệt và truy cập vào địa chỉ `http://<external-ip>:8081` với <external-ip> là external ip của instance. Tài khoản và mật khẩu để truy cập vào Airflow Web UI là thông tin đã nhập ở bước 5.1.
 
 ![airflowui.png](images/airflowui.png)
