@@ -46,7 +46,8 @@ Chọn `ENABLE APIS AND SERVICES`, tìm kiếm và `ENABLE` các API sau:
 
 ### 3. Tạo Service Account và tải file json key
 
-Service Account là một loại tài khoản đặc biệt của Google, không đại diện cho bất cứ người dùng cụ thể nào. Service Account được sử dụng để thực hiện xác thực và phân quyền cho các ứng dụng cần truy cập vào tài nguyên của GCP. Cùng với cơ chế Role-based Access Congtrol (Kiểm soát truy cập dựa trên vai trò), mỗi Role tương ứng với một tập hợp các quyền (permissrions) cho phép thực hiện các thao tác lên tài nguyên GCP. Mỗi Service Account có thể được gán một hoặc nhiều Role, và mỗi Role có thể được gán cho một hoặc nhiều Service Account. Các Role được gán cho một Service Account sẽ xác định các quyền mà Service Account đó có thể thực hiện trên các tài nguyên của GCP.
+Service Account là một loại tài khoản đặc biệt của Google, không đại diện cho bất cứ người dùng cụ thể nào. Service Account được sử dụng để thực hiện xác thực và phân quyền cho các ứng dụng cần truy cập vào tài nguyên của GCP. 
+Cùng với cơ chế Role-based Access Control (Kiểm soát truy cập dựa trên vai trò), mỗi Role tương ứng với một tập hợp các quyền (permissions) cho phép thực hiện các thao tác lên tài nguyên GCP. Mỗi Service Account có thể được gán một hoặc nhiều Role, và mỗi Role có thể được gán cho một hoặc nhiều Service Account. Các Role được gán cho một Service Account sẽ xác định các quyền mà Service Account đó có thể thực hiện trên các tài nguyên của GCP.
    
 Để tạo Service Account, nhấn vào biểu tượng `Navigation menu` -> `IAM & Admin` -> `Service Accounts` -> `Create Service Account`.
 
@@ -219,7 +220,7 @@ sudo make up
 ```
 
 # Kết quả chạy DEMO
-Truy cập vào Airflow Web UI bằng cách mở trình duyệt và truy cập vào địa chỉ `http://<external-ip>:8081` với <external-ip> là external ip của instance. Tài khoản và mật khẩu để truy cập vào Airflow Web UI là thông tin đã nhập ở bước 5.1.
+Truy cập vào Airflow Web UI bằng cách mở trình duyệt và truy cập vào địa chỉ `http://<external-ip>:8081` với <external-ip> là external ip của instance. Tài khoản và mật khẩu để truy cập vào Airflow Web UI là thông tin đã nhập ở bước 5.3.
 
 ![airflowui.png](images/airflowui.png)
 
