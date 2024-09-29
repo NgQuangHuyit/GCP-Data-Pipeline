@@ -196,12 +196,22 @@ sudo apt-get install git make
 git clone https://github.com/NgQuangHuyit/GCP-Data-Pipeline.git
 ```
 - Setup project:
+
 ```bash
 cd GCP-Data-Pipeline
 make init-dirs
-make setup
+```
+Ở phía trên màn hình terminal, chọn `UPLOAD` -> upload file json key đã tạo ở bước 3 .
+
+Di chuyển file json key vào thư mục `credentials`:
+```bash
+mv ~/<json-file-name> ~/GCP-Data-Pipeline/credentials/
 ```
 
+Cài đặt biến môi trường:
+```bash
+make setup
+```
 Prompt hiện lên yêu cầu nhập vào lần lượt các thông tin sau:
 - Airfow Webserver Username. Ex: airflow
 - Airfow Webserver Password Ex: airflow
@@ -210,12 +220,7 @@ Prompt hiện lên yêu cầu nhập vào lần lượt các thông tin sau:
 - BigQuery dataset name Ex: mydataset
 - BigQuery table name Ex: mytable
 
-Ở phía trên màn hình terminal, chọn `UPLOAD` -> upload file json key đã tạo ở bước 3 .
 
-Di chuyển file json key vào thư mục `credentials`:
-```bash
-mv ~/<json-file-name> ~/GCP-Data-Pipeline/credentials/
-```
 
 Chaỵ docker compose:
 ```bash
