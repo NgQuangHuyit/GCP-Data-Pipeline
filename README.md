@@ -23,6 +23,8 @@ Data Pipeline: `Google Drive` -> `Google Cloud Storage` -> `BigQuery`
 
 Data Source: Dữ liệu test sinh ra từ `dummydata_generator.py` - > `Google Drive`
 
+[Link Data Source](https://drive.google.com/drive/folders/12Mk4r9EeU_HdPKMYK59Twlagthz3D2NQ)
+
 ## Hướng dẫn Setup môi trường
 
 ### 1. Khởi tạo GCP project
@@ -226,9 +228,10 @@ Chaỵ docker compose:
 ```bash
 sudo make up
 ```
+Quá trình build và chạy docker compose sẽ mất một khoảng một vài phút.
 
 # Kết quả chạy DEMO
-Truy cập vào Airflow Web UI bằng cách mở trình duyệt và truy cập vào địa chỉ `http://<external-ip>:8081` với <external-ip> là external ip của instance. Tài khoản và mật khẩu để truy cập vào Airflow Web UI là thông tin đã nhập ở bước 5.3.
+Truy cập vào Airflow Web UI bằng cách mở trình duyệt và truy cập vào địa chỉ `http://<external-ip>:8081` với external ip của instance. Tài khoản và mật khẩu để truy cập vào Airflow Web UI là thông tin đã nhập ở bước 5.3.
 
 ![airflowui.png](images/airflowui.png)
 

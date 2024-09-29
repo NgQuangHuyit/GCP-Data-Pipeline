@@ -22,7 +22,7 @@ BUCKET_NAME = os.getenv("GCS_BUCKET_NAME")
 
 
 #GOOGLE DRIVE SOURCE
-GG_DRIVE_FOLDER_ID = "1__k9gDSxeGauJhD6iBAoxRmhoO-p6WIG"
+GG_DRIVE_FOLDER_ID = "12Mk4r9EeU_HdPKMYK59Twlagthz3D2NQ"
 
 JSON_CREDENTIAL_PATH = os.path.join(os.path.dirname(__file__), "credentials", os.getenv("CREDENTIAL_FILE_NAME"))
 LOCAL_RAW_DATA_DIR = os.getenv("LOCAL_RAW_DATA_DIR") if os.getenv("LOCAL_RAW_DATA_DIR") else "/opt/airflow/dags/data/raw"
