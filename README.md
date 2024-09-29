@@ -215,7 +215,7 @@ make setup
 Prompt hiện lên yêu cầu nhập vào lần lượt các thông tin sau:
 - Airfow Webserver Username. Ex: airflow
 - Airfow Webserver Password Ex: airflow
-- Google credential file path
+- Google credential file name Ex: my_key.json
 - GCS Bucket Name (Tên bucket đã tạo) Ex: mybucket
 - BigQuery dataset name Ex: mydataset
 - BigQuery table name Ex: mytable
