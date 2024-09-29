@@ -157,6 +157,8 @@ Thiết lập thông tin như hình dưới và nhấn `CREATE`.
 
 Quay trở lại màn hình `Compute Engine` -> `VM instances`, chọn instance vừa tạo, chọn `SSH` để truy cập vào instance.
 
+![image19.png](images/image19.png)
+
 Cửa sổ terminal hiện ra, thực hiện các bước sau: 
  - Setup Docker apt repository:
 ```bash

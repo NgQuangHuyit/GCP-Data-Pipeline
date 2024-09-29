@@ -53,7 +53,7 @@ with DAG(
     dag_id="nexar-pipeline",
     schedule_interval="0 7 * * *",
     start_date=datetime(2024, 9, 21, tzinfo=vietnam_tz),
-    end_date=datetime(2024, 9, 23, tzinfo=vietnam_tz),
+    end_date=datetime(2024, 9, 25, tzinfo=vietnam_tz),
     catchup=True,
     default_args=default_agrs
 ) as dag:
