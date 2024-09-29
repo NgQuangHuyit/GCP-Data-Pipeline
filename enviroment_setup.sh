@@ -10,8 +10,8 @@ echo "_AIRFLOW_WWW_USER_USERNAME=$username" >> .env
 read -p "Enter airflow www password: " password
 echo  "_AIRFLOW_WWW_USER_PASSWORD=$password" >> .env
 
-read -p "Enter the json credential path: " credentials_path
-echo "JSON_CREDENTIAL_PATH=$credentials_path" >> .env
+read -p "Enter the json credential file name: " credentials_filename
+echo "CREDENTIAL_FILE_NAME=$credentials_filename" >> .env
 
 read -p "Enter the GCS bucket name: " bucket_name
 echo "GCS_BUCKET_NAME=$bucket_name" >> .env
