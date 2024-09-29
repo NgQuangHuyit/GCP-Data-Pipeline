@@ -2,16 +2,18 @@ echo "" > .env
 echo "AIRFLOW_UID=$(id -u)" > .env
 echo "AIRFLOW_GID=0" >> .env
 
-echo "Set airflow www admit user"
-read -p "Enter the user name: " username
+
+read -p "Enter airflow www user name: " username
 echo "_AIRFLOW_WWW_USER_USERNAME=$username" >> .env
 
-echo "Set airflow www admit password"
-read -p "Enter the password: " password
+
+read -p "Enter airflow www password: " password
 echo  "_AIRFLOW_WWW_USER_PASSWORD=$password" >> .env
 
-echo "Set GCS bucket name"
-read -p "Enter the bucket name: " bucket_name
+read -p "Enter the json credential path: " credentials_path
+echo "JSON_CREDENTIAL_PATH=$credentials_path" >> .env
+
+read -p "Enter the GCS bucket name: " bucket_name
 echo "GCS_BUCKET_NAME=$bucket_name" >> .env
 
 read -p "Enter the bigquery dataset id: " dataset_id
